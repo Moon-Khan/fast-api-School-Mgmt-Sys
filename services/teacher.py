@@ -51,7 +51,7 @@ async def update_teacher(teacher_id:str, teacher:TeacherCreate) ->TeacherRespons
     return TeacherResponse(**teacher_updated)
 
 
-
+    
 async def delete_teacher(teacher_id:str):
     teacherid=ObjectId(teacher_id)
     delete_result = await teachers.delete_one({"_id":teacherid})

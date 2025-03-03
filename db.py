@@ -1,6 +1,6 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 
-MONGO_URI = "mongodb+srv://mamoonkhan:EFKKjfzN1REexVGn@cluster0.kravb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+MONGO_URI = "YOUR_MONGO_URI"
 client = AsyncIOMotorClient(MONGO_URI)
 
 database = client["SchoolSys"]

@@ -27,3 +27,12 @@ class CourseCreate(BaseModel):
 class CourseResponse(CourseCreate):
     id:str
 
+class CreateUser(BaseModel):
+    name: str
+    email: EmailStr
+    password: str
+    role: str
+
+class UserResponse(CreateUser):
+    id: str
+    
