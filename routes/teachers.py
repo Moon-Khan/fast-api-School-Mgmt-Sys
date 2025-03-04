@@ -11,7 +11,7 @@ async def add_teacher(teacher_data:TeacherCreate, teach:dict = Depends(check_adm
     return await create_teacher(teacher_data)
 
 @router.get("/fetch-all-teachers", response_model=List[TeacherResponse])
-async def fetch_all_teacher(teach:dict = Depends(check_teacher)):
+async def fetch_all_teacher(teach:dict = Depends(check_teacher)): 
     return await get_all_teacher()
 
 @router.get("/fetch-teacher/{teacher_id}", response_model=TeacherResponse)

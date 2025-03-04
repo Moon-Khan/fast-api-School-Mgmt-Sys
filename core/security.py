@@ -1,10 +1,10 @@
 from passlib.context import CryptContext
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
-import secrets
+# import secrets
 
 
-SECRET_KEY= secrets.token_hex(32)
+SECRET_KEY= "32jds3540iedfk4394293hfksnvm49302nf23950292587vddnv84321"
 ACCESS_TOKEN_EXPIRE_MINUTES=30
 ALGORITHM = "HS256"
 
@@ -17,14 +17,14 @@ def verify_pswrd(plain_pswrd: str, hash_pswrd: str) ->bool:
     return pwd_context.verify(plain_pswrd, hash_pswrd)
 
 def create_access_token(data: dict):
-    to_encode = data.copy   ()
+    to_encode = data.copy()
     expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 def decode_access_token(token: str):
     try:
-        payload = jwt.decode(token, SECRET_KEY, ALGORITHM)
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         return payload
     
     except JWTError:

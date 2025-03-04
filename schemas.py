@@ -29,10 +29,10 @@ class CourseResponse(CourseCreate):
 
 class CreateUser(BaseModel):
     name: str
-    email: EmailStr
+    username: str
     password: str
     role: str
 
 class UserResponse(CreateUser):
     id: str
-    
+

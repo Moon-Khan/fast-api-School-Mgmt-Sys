@@ -2,7 +2,7 @@ from schemas import CourseCreate, CourseResponse
 from fastapi import APIRouter, Depends
 from typing import List
 from services.course import create_course, get_all_courses, get_course, update_course, delete_course
-from dependencies.auth import check_admin
+from dependencies.auth import check_admin, check_student
 
 router = APIRouter()
 
@@ -11,11 +11,11 @@ async def add_course(course_data:CourseCreate, admin: dict = Depends(check_admin
     return await create_course(course_data)
 
 @router.get("/fetch-all-courses", response_model=List[CourseResponse])
-async def fetch_all_courses():
+async def fetch_all_courses(student: dict = Depends(check_student)):
     return await get_all_courses()
 
 @router.get("/fetch-course/{course_id}", response_model=CourseResponse)
-async def fetch_course(course_id: str):
+async def fetch_course(course_id: str, student: dict = Depends(check_student)):
     return await get_course(course_id)
 
 @router.put("/update-course/{course_id}", response_model=CourseResponse)

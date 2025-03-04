@@ -32,7 +32,7 @@ async def get_teacher(teacher_id: str) ->TeacherResponse:
     teacher = await teachers.find_one({"_id":ObjectId(teacher_id)})
 
     if not teacher:
-        raise HTTPException(status_code=404, detail="Course not found")
+        raise HTTPException(status_code=404, detail="Teacher not found")
     
     teacher["id"] = str(teacher.pop("_id"))  
     return TeacherResponse(**teacher)

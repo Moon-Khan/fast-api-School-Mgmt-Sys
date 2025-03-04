@@ -2,7 +2,7 @@ from fastapi import Depends, HTTPException, Security
 from fastapi.security import OAuth2PasswordBearer
 from core.security import decode_access_token
 
-auth_scheme = OAuth2PasswordBearer(tokenUrl="login")
+auth_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 
 async def get_current_user(token: str = Security(auth_scheme)):
     token_decode = decode_access_token(token)

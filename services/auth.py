@@ -6,19 +6,18 @@ from fastapi import HTTPException
 
 
 async def register_user(user:CreateUser):
-    user_find = await users.find_one({"email":user.email})
+    user_find = await users.find_one({"username":user.username})
     if user_find:
         raise HTTPException(status_code=400, detail="User already exists")
-
     
     user_data = user.dict()
     user_data["password"]=hash_pswrd(user.password)
-    result = await user.insert_one(user_data)
+    result = await users.insert_one(user_data)
 
     return UserResponse(**user_data,id= str(result.inserted_id) )
 
-async def login_user(email:str, pswrd: str):
-    user_find = await users.find_one({"email": email})
+async def login_user(username:str, pswrd: str):
+    user_find = await users.find_one({"username": username})
 
     if not user_find:
         raise HTTPException(status_code=404, detail="User not found")
@@ -28,7 +27,6 @@ async def login_user(email:str, pswrd: str):
     if not pswrd_check:
         raise HTTPException(status_code=481, detail="password not correct")
     
-    token_create = create_access_token({"sub": user_find["email"], "role": user_find["role"]})
+    token_create = create_access_token({"sub": user_find["username"], "role": user_find["role"]})
 
-    return {"access_token": token_create}
-
+    return {"access_token": token_create, "token_type": "bearer"}
